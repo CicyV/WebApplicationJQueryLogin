@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <style>
+        header {
+            text-align: center;
+        }
+
+        .bo {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .form-container {
+            background-color: #f5c2c2;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            text-align: left;
+        }
+
+        header {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: none;
+            background-color: #0026ff;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 20px;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #3ec729;
+            }
+
+        .form-container a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+            .form-container a:hover {
+                text-decoration: underline;
+            }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            $("#email").on("input blur",
+                function (){
+                var email = $(this).val();
+                if (!emailPattern.test(email)) {
+                    $("#error").text("Please enter a valid email address.");
+                } else {
+                    $("#error").text("");
+                }
+            });
+
+
+            $("#password").on("input blur", function () {
+                var password = $(this).val();
+                if (password.length < 8) {
+                    $("#error").text("Password must be at least 8 characters long.");
+                } else {
+                    $("#error").text("");
+                }
+            });
+
+
+            $("form").submit(function (event) {
+
+                $("#error").text("");
+
+                var email = $("#email").val();
+                var password = $("#password").val();
+
+
+                if (!emailPattern.test(email)) {
+                    $("#error").text("Please enter a valid email address.");
+                    event.preventDefault();
+                    return;
+                }
+
+
+                if (password.length < 8) {
+                    $("#error").text("Password must be at least 8 characters long.");
+                    event.preventDefault();
+                    return;
+                }
+
+
+            });
+        });
+    </script>
+
+</head>
+<body>
+    <div class="bo">
+        <div class="form-container">
+            <header>
+                <h1>Welcome Back!</h1>
+                <h2>Login to your account</h2>
+            </header>
+
+            <form>
+                <label for="email">Email Address:</label><br>
+                <input type="text" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required><br><br>
+
+                <div class="checkbox-container">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Remember Me</label>
+                </div>
+
+                <a href="#">Forgot Password?</a><br><br>
+
+                <input type="submit" value="Login">
+            </form>
+            <p id="error" style="color:red;"></p>
+
+            <p>Don't have an account? <a href="#">Sign Up</a></p>
+        </div>
+    </div>
+</body>
+</html>
+
+
